@@ -1,0 +1,147 @@
+version: 2
+
+models:
+  - name: categories
+    config:
+      schema: trusted_data
+    columns:
+      - name: category_id
+        description: Id de Categoria
+        tests:
+          - unique
+          - not_null
+      - name: category_name
+        description: Nombre de la Categoria
+        tests:
+          - not_null
+      - name: category_department_id
+        description: Id del Departamento
+        tests:
+          - not_null
+
+  - name: customers
+    config:
+      schema: trusted_data
+    columns:
+      - name: customer_id
+        description: Id del Customer
+        tests:
+          - unique
+          - not_null
+      - name: customer_fname
+        description: Nombre del Customer
+        tests:
+          - not_null
+      - name: customer_lname
+        description: Apellido del Customer
+        tests:
+          - not_null
+      - name: customer_email
+        description: Email del Customer
+      - name: customer_password
+        description: Contraseña del Customer
+      - name: customer_street
+        description: Direccion del Customer
+      - name: customer_city
+        description: Ciudad del Customer
+        tests:
+          - not_null
+      - name: customer_state
+        description: Estado del Customer
+        tests:
+          - not_null
+      - name: customer_zipcode
+        description: Codigo Postal
+
+  - name: departments
+    config:
+      schema: trusted_data
+    columns:
+      - name: department_id
+        description: Id del Departamento
+        tests:
+          - unique
+          - not_null
+      - name: department_name
+        description: Nombre del Departamento
+        tests:
+          - not_null
+      
+  - name: order_items
+    config:
+      schema: trusted_data
+    columns:
+      - name: order_item_id
+        description: Id del Orden-item
+        tests:
+          - unique
+          - not_null
+      - name: order_item_order_id
+        description: Id de la Orden
+        tests:
+          - not_null
+      - name: order_item_product_id
+        description: Id del Producto
+        tests:
+          - not_null
+      - name: order_item_quantity
+        description: Cantidad del Producto
+        tests:
+          - not_null
+      - name: order_item_subtotal
+        description: Subtotal del Producto
+        tests:
+          - not_null
+      - name: order_item_product_price
+        description: Precio Unitario del producto
+        tests:
+          - not_null
+
+
+  - name: orders
+    config:
+      schema: trusted_data
+    columns:
+      - name: order_id
+        description: Id del Orden
+        tests:
+          - unique
+          - not_null
+      - name: order_date
+        description: Fecha de la Orden
+        tests:
+          - not_null
+      - name: order_customer_id
+        description: Id del Customer
+        tests:
+          - not_null
+      - name: order_status
+        description: Estado de la Orden
+        tests:
+          - not_null
+
+  - name: products
+    config:
+      schema: trusted_data
+    columns:
+      - name: product_id
+        description: Id del Producto
+        tests:
+          - unique
+          - not_null
+      - name: product_category_id
+        description: Id de la Categoria
+        tests:
+          - not_null
+      - name: product_name
+        description: Nombre del Producto
+        tests:
+          - not_null
+      - name: product_description
+        description: Descripcion del Producto
+      - name: product_price
+        description: Precio del Producto
+        tests:
+          - not_null
+      - name: product_image
+        description: URL de la imagen del Producto

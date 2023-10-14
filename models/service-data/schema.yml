@@ -1,0 +1,144 @@
+version: 2
+
+models:
+  - name: dim_customers
+    config:
+      schema: service_data
+    columns:
+      - name: customer_id
+        description: Id del Customer
+        tests:
+          - unique
+          - not_null
+      - name: customer_first_name
+        description: Nombre del Customer
+        tests:
+          - not_null
+      - name: customer_last_name
+        description: Apellido del Customer
+        tests:
+          - not_null
+      - name: customer_street
+        description: Direccion del Customer
+      - name: customer_city
+        description: Ciudad del Customer
+        tests:
+          - not_null
+      - name: customer_state
+        description: Estado del Customer
+        tests:
+          - not_null
+      - name: customer_zipcode
+        description: Codigo Postal
+
+  - name: dim_products
+    config:
+      schema: service_data
+    columns:
+      - name: product_id
+        description: Id del Producto
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: Nombre del Producto
+        tests:
+          - not_null
+      - name: product_description
+        description: Descripcion del Producto
+      - name: product_price
+        description: Precio del Producto
+        tests:
+          - not_null
+      - name: product_image
+        description: URL de la imagen del Producto
+      - name: category_id
+        description: Id de Categoria
+        tests:
+          - not_null
+      - name: category_name
+        description: Nombre de la Categoria
+        tests:
+          - not_null
+      - name: department_id
+        description: Id del Departamento
+        tests:
+          - not_null
+      - name: department_name
+        description: Nombre del Departamento
+        tests:
+          - not_null
+
+  
+  - name: fact_retail_orders
+    config:
+      schema: service_data
+    columns:
+      - name: order_id
+        description: Id de la Orden
+        tests:
+          - not_null
+      - name: date
+        description: Fecha de la Orden
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_time')
+              field: date
+      - name: customer_id
+        description: Id del Customer
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: order_status
+        description: Estado de la Orden
+        tests:
+          - not_null
+      - name: order_item_id
+        description: Id del Orden-Item
+        tests:
+          - not_null
+      - name: product_id
+        description: Id del Producto
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: product_id
+      - name: quantity
+        description: Cantidad del Producto
+        tests:
+          - not_null
+      - name: subtotal
+        description: SubTotal del Producto
+        tests:
+          - not_null
+      - name: product_price
+        description: Precio unitario
+        tests:
+          - not_null
+
+  - name: dim_time
+    description: Dimension de Tiempo
+    config:
+      schema: service_data
+    columns:
+      - name: date
+        description: Fecha
+        tests:
+          - unique
+          - not_null
+      - name: month
+        description: Mes
+        tests:
+          - not_null
+      - name: quarter
+        description: Quatrimestre (Q)
+        tests:
+          - not_null
+      - name: year
+        description: Año
+        tests:
+          - not_null
